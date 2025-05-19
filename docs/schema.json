@@ -1,0 +1,157 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "MiniPreview JSX Combined Schema",
+    "version": "1.0.1",
+    "description": "Schema for generating JSX files at scene, component, and child-component levels with Chakra UI, dynamic imports, explicit global token referencing, theme integration, and responsive design."
+  },
+  "servers": [
+  { "url": "https://schema.lxmiswap.org"}
+],
+
+  "paths": {
+    "/generateSceneFile": {
+      "post": {
+        "summary": "Generate JSX scene-level file with dynamic component loading, theme integration, and global token referencing.",
+        "operationId": "generateSceneFile",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["sceneFileName", "componentsFolderName", "globalTokens"],
+                "properties": {
+                  "sceneFileName": {
+                    "type": "string",
+                    "description": "Scene JSX file name (e.g., 'HomeScreen.jsx').",
+                    "x-prompt": "What is the name of the new scene file?"
+                  },
+                  "componentsFolderName": {
+                    "type": "string",
+                    "description": "Name of the folder containing scene components (e.g., 'HomeScreenComponents').",
+                    "x-prompt": "What should the components folder be named?"
+                  },
+                  "globalTokens": {
+                    "type": "object",
+                    "description": "Explicit references or definitions of global tokens needed from globalTokens.json.",
+                    "x-prompt": "Specify global tokens to reference from globalTokens.json"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully generated scene-level JSX file.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "sceneFileContent": "Full JSX script with explicit theme integration, dynamic imports, global token references, and annotations as defined."
+                }
+              }
+            }
+          }
+        }    
+      }
+    },
+    "/generateComponentFile": {
+      "post": {
+        "summary": "Generate JSX component-level file with dynamic child component loading and explicit theme integration.",
+        "operationId": "generateComponentFile",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["componentFileName", "childrenFolder", "containerSpecs", "localTokens"],
+                "properties": {
+                  "componentFileName": {
+                    "type": "string",
+                    "description": "Component JSX file name (e.g., 'TopNavBar.jsx').",
+                    "x-prompt": "What is the component file name?"
+                  },
+                  "childrenFolder": {
+                    "type": "string",
+                    "description": "Folder path for child components (e.g., './TopNavBarChildren').",
+                    "x-prompt": "Name of the folder containing child components?"
+                  },
+                  "containerSpecs": {
+                    "type": "string",
+                    "description": "Chakra UI container specifications (e.g., 'w=\"100%\" h=\"60px\"').",
+                    "x-prompt": "Container specifications (type, dimensions)?"
+                  },
+                  "localTokens": {
+                    "type": "object",
+                    "description": "Explicitly specify any local tokens, referencing globalTokens.json for global values.",
+                    "x-prompt": "Define local tokens needed or specify references to globalTokens.json"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully generated component-level JSX file.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "componentFileContent": "Fully annotated JSX component script with dynamic imports, local token references, and responsive design."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/generateChildComponentFile": {
+      "post": {
+        "summary": "Generate JSX child-level component file with explicit global token integration and styling.",
+        "operationId": "generateChildComponentFile",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["childComponentFileName", "parentFolder", "tokenSpecs"],
+                "properties": {
+                  "childComponentFileName": {
+                    "type": "string",
+                    "description": "Child component file name (e.g., 'MenuToggle.jsx').",
+                    "x-prompt": "What is the child component file name?"
+                  },
+                  "parentFolder": {
+                    "type": "string",
+                    "description": "Parent folder path for child component (e.g., './MenuChildren').",
+                    "x-prompt": "What is the parent folder path for this child component?"
+                  },
+                  "tokenSpecs": {
+                    "type": "object",
+                    "description": "Explicit local tokens or references to global tokens required from globalTokens.json.",
+                    "x-prompt": "Define local tokens or explicitly reference global tokens from globalTokens.json"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully generated child-level JSX component file.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "childComponentFileContent": "Annotated JSX child component script with explicit token references and responsive styling."
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
